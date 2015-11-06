@@ -151,8 +151,7 @@ class YammerPHP {
 		$headers[] = "Authorization: Bearer " . $this->oauthToken;
 
 		$ch = curl_init();
-		echo "\ndata stream: " . ($data_stream = $url . '?' . http_build_query($data) );
-		//curl_setopt($ch, CURLOPT_URL, $data_stream);
+		$data_stream = $url . '?' . http_build_query($data);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 		if ($isPost) {

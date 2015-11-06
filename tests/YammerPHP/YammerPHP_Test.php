@@ -24,7 +24,7 @@ class YammerPHP_Test extends PHPUnit_Framework_TestCase {
 	/**
 	 * Test getAuthorizationUrl
 	 *
-	 * @covers YammerPHP::getAuthorizationUrl
+	 * @covers \YammerPHP::getAuthorizationUrl
 	 */
 	public function testGetAuthorizationUrl() {
 		$url = $this->object->getAuthorizationUrl();

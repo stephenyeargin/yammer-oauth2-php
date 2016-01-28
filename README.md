@@ -19,7 +19,7 @@ $config['consumer_key'] = '1ABCdefhiJKLmnop';
 $config['consumer_secret'] = 'ABCdefhi_JKLmnop';
 $config['callbackUrl'] = 'http://' . $_SERVER['SERVER_NAME'] . '/yammer/callback/';
 
-$yammer = new YammerPHP($config);
+$yammer = new YammerPHP\YammerPHP($config);
 ```
 
 Starting the callback process:

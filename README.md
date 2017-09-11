@@ -51,7 +51,7 @@ if (!$yammer->testAuth()) {
 
 // Retrieve feed for authenticated user
 try {
-    $feed = $yammer->request('messages/my_feed.json');
+    $feed = $yammer->get('messages/my_feed.json');
     print_r($feed);
 } catch (YammerPHPException $e) {
     print 'Error: ';

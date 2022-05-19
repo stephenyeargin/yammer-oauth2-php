@@ -1,4 +1,6 @@
-# Yammer OAuth2 for PHP [![Build Status](https://travis-ci.org/stephenyeargin/yammer-oauth2-php.svg)](https://travis-ci.org/stephenyeargin/yammer-oauth2-php)
+# Yammer OAuth2 for PHP 
+
+[![CI Build and Test](https://github.com/stephenyeargin/yammer-oauth2-php/actions/workflows/ci.yml/badge.svg)](https://github.com/stephenyeargin/yammer-oauth2-php/actions/workflows/ci.yml)
 
 PHP wrapper for Yammer's API.
 

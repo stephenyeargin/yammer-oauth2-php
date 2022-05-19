@@ -48,7 +48,8 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Run PHPUnit
-        run: bin/phpunit --coverage-clover build/coverage-${{ matrix.php-versions }}.xml --log-junit build/phpunit-${{ matrix.php-versions }}.xml
+        run: |
+          ./vendor/bin/phpunit --coverage-clover build/coverage-${{ matrix.php-versions }}.xml --log-junit build/phpunit-${{ matrix.php-versions }}.xml
 
       - name: Run PHPStan
         run: |

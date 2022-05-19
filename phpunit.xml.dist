@@ -7,7 +7,7 @@
      colors="true">
 
   <testsuites>
-    <testsuite name="RavenToolsAPI_Tests">
+    <testsuite name="Default Tests">
       <directory suffix="Test.php">tests/YammerPHP</directory>
     </testsuite>
   </testsuites>

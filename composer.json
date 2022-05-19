@@ -8,9 +8,9 @@
             "email": "stephen@yearg.in"
         }
     ],
-    "require": {},
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "phpstan/phpstan": "^1.6"
     },
     "autoload": {
         "psr-0" : {

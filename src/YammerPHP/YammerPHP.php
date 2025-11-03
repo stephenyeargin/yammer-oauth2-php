@@ -10,6 +10,11 @@ namespace YammerPHP;
  *    $config['consumer_key'] = '1ABCdefhiJKLmnop';
  *    $config['consumer_secret']   = 'ABCdefhi_JKLmnop';
  *    $config['callbackUrl']  = 'http://' . $_SERVER['SERVER_NAME'] . '/yammer/callback/';
+ *    $config['useProxy'] = true;
+ *    $config['proxyHost'] = 'http://proxy.example.com';
+ *    $config['proxyPort'] = '3128';
+ *    $config['proxyUser'] = 'proxyUser';
+ *    $config['proxyPW'] = '1ABCdefhiJKLmnop';
  *
  *    $yammer = new YammerPHP($config);
  */
@@ -20,9 +25,14 @@ class YammerPHP
     public $oauthToken;
     public $oauthTokenSecret;
     public $callbackUrl;
+    public $proxyHost;
+    public $proxyPort;
+    public $proxyUser;
+    public $proxyPW;
 
     protected $authToken;
 
+    private $useProxy = false;
     /**
      * Class Constructor
      *
@@ -33,6 +43,14 @@ class YammerPHP
         $this->consumerKey = $config['consumer_key'];
         $this->consumerSecret = $config['consumer_secret'];
         $this->callbackUrl = $config['callbackUrl'];
+
+        if (isset($config['useProxy']) && $config['useProxy'] && $config['useProxy'] === true) {
+            $this->useProxy = $config['useProxy'];
+            $this->proxyHost = $config['proxyHost'];
+            $this->proxyPort = $config['proxyPort'];
+            $this->proxyUser = $config['proxyUser'];
+            $this->proxyPW = $config['proxyPW'];
+        }
 
         /* Set Up OAuth Consumer */
         if (isset($config['oauth_token']) && $config['oauth_token_secret']) {
@@ -90,6 +108,13 @@ class YammerPHP
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        if ($this->useProxy) {
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxyHost);
+            curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxyPort);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, $this->proxyUser . ':' . $this->proxyPW);
+        }
+
         $response = curl_exec($ch);
 
         if (in_array(curl_getinfo($ch, CURLINFO_HTTP_CODE), array(400,401))) {
@@ -171,6 +196,13 @@ class YammerPHP
         }
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        if ($this->useProxy) {
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxyHost);
+            curl_setopt($ch, CURLOPT_PROXYPORT, $this->proxyPort);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, $this->proxyUser . ':' . $this->proxyPW);
+        }
+
         $output = curl_exec($ch);
 
         // Throw exception on no response from server
@@ -197,7 +229,7 @@ class YammerPHP
      * @param int $replied_to_id
      * @return mixed
      */
-    public function postMessage($body, $group_id=0, $replied_to_id = 0)
+    public function postMessage($body, $group_id = 0, $replied_to_id = 0)
     {
         $url = 'https://www.yammer.com/api/v1/messages.json';
         $data = array(
